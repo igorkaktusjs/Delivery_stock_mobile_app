@@ -1,32 +1,50 @@
-import { useState } from 'react';
-import { Switch } from 'react-native-paper';
-import { StyleSheet, View, Text } from 'react-native'
+import { useMemo, useState } from "react";
+import { Switch } from "react-native-paper";
+import { StyleSheet, View, Text } from "react-native";
+
+import { useSelector, useDispatch } from "react-redux";
+
+import { triggerAvailableStock } from "../../../store/allProductsStockSlice";
 
 const StockSwitch = () => {
-  const [isSwitchOn, setIsSwitchOn] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => dispatch(triggerAvailableStock(!filterAllStock));
 
-  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+  const dispatch = useDispatch();
 
-  return <View style={styles.container}> 
-            <Text style={styles.title}>In Stock</Text>
-            <Switch value={isSwitchOn} onValueChange={onToggleSwitch} color='#8b0000'/>
-          </View>
-  ;
+  const filterAllStock = useSelector(
+    (state) => state.stockSlice.filterAllStock
+  );
+
+  return (
+    <View style={styles.container}>
+      <Switch
+        style={styles.switch}
+        value={filterAllStock}
+        onValueChange={toggleSwitch}
+        color="#ff4500"
+      />
+      <Text style={styles.title}>In Stock</Text>
+    </View>
+  );
 };
 
 export default StockSwitch;
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom:10
+    flex: 1,
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
   },
   title: {
-    color: 'white',
-    fontSize: 12,
-    textAlign: 'center',
-    paddingBottom:2
+    color: "white",
+    fontSize: 10,
+    textAlign: "center",
   },
   switch: {
-    margin:3
-  }
-})
+    marginLeft: 15,
+    marginRight: 5,
+  },
+});

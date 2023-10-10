@@ -1,27 +1,24 @@
-import { Pressable, StyleSheet, Text } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
+import { Pressable, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-function IconButton () {
-    return <Pressable style={styles.container}> 
-        <Text style={styles.filtersTitle}>Filters</Text>
-        <Ionicons name='filter' size={28} color='white' />
+function IconButton(props) {
+  return (
+    <Pressable style={styles.container}>
+      <Ionicons
+        onPress={props.onPress}
+        style={props.style}
+        name={props.name}
+        size={props.size}
+        color={props.color}
+      />
     </Pressable>
+  );
 }
 
-export default IconButton
+export default IconButton;
 
 const styles = StyleSheet.create({
-    container: {
-        flex:2,
-        justifyContent: 'center',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: 10,
-        paddingTop: 1
-    },
-    filtersTitle:{
-        color: 'white',
-        fontSize: 12,
-        
-    }
-})
+  container: {
+    padding: 13
+  }
+});

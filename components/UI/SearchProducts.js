@@ -1,54 +1,59 @@
-import {View, TextInput, StyleSheet} from 'react-native';
-import{ useState } from 'react'
+import { View, TextInput, StyleSheet } from "react-native";
+import { useState } from "react";
 
-import {
-    useGetAllStockQuery,
-    } from '../../store/ApiSlice';
+import { useSelector, useDispatch } from "react-redux";
+import { searchProduct } from "../../store/allProductsStockSlice";
 
+import { useGetAllStockQuery } from "../../store/ApiSlice";
 
-function SearchProducts () {
+function SearchProducts() {
+  const { data: post } = useGetAllStockQuery();
 
-    const { data: post }  = useGetAllStockQuery();
+  const dispatch = useDispatch();
 
-    const [focusing, setFocusing] = useState('');
+  const [focusing, setFocusing] = useState("");
 
-    const customOnFocus = (e) => {
-        setFocusing({textAlign: 'left'});
-        console.log(e.target.value);
-    }
+  const customOnFocus = () => {
+    setFocusing({ textAlign: "left" });
+  };
 
-    return (
+  const InputHandler = (e) => {
+    dispatch(searchProduct(e));
+  };
+
+  const input = useSelector((state) => state.stockSlice.searchProduct);
+
+  return (
     <View style={styles.inputConteiner}>
-        <TextInput 
-        style={[styles.input,focusing]}
+      <TextInput
+        style={[styles.input, focusing]}
         placeholder="Search..."
         onFocus={customOnFocus}
-        />
+        onChangeText={InputHandler}
+        value={input}
+      />
     </View>
-    )
+  );
 }
 
 export default SearchProducts;
 
 const styles = StyleSheet.create({
-    inputConteiner:{
-        flex:1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginVertical: 40
-        
-
-    },
-    input: {
-      flex:1,
-      height: 50,
-      margin: 12,
-      borderWidth: 0.2,
-      padding: 10,
-      borderRadius: 10,
-      backgroundColor: '#E5E4E2',
-      textAlign: 'center'
-
-    },
-  });
+  inputConteiner: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginVertical: 24,
+  },
+  input: {
+    flex: 1,
+    height: 35,
+    margin: 6,
+    borderWidth: 0.2,
+    padding: 5,
+    borderRadius: 10,
+    backgroundColor: "#f8f8ff",
+    textAlign: "center",
+  },
+});
