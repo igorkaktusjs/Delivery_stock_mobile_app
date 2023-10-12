@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+const  initialState = {
     data: [],
     searchProduct: '',
+    defaultAllFilters: 'All',
     currentFilterTag: 'All',
     filterProduct: [],
     filterAllStock: false,
-    activeFilter: 'all'
+    activeFilter: 'all',
+    focusOnSearch: false
 }
 
 const allProductsStockSlice = createSlice({
@@ -22,6 +24,12 @@ const allProductsStockSlice = createSlice({
         currentFilters: (state,action) => {
             state.currentFilterTag = action.payload;
         },
+        defaultFilterTag: (state) => {
+            state.currentFilterTag = state.defaultAllFilters;
+        },
+        currentFocusOnSearch: (state,action) => [
+            state.focusOnSearch = action.payload
+        ]
     }
 });
 
@@ -32,5 +40,7 @@ export default reducer;
 export const {
     searchProduct,
     triggerAvailableStock,
-    currentFilters
+    currentFilters,
+    defaultFilterTag,
+    currentFocusOnSearch
 } = actions;

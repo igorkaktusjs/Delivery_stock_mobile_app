@@ -1,18 +1,18 @@
 import { Pressable, StyleSheet, Text } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 function IconButtonForStatusBar(props) {
 
   return (
     <Pressable style={styles.container}>
-      <Ionicons
+      <MaterialCommunityIcons
         onPress={props.onPress}
         style={styles.search}
-        name="filter"
-        size={28}
+        name="filter-variant-plus"
+        size={30}
         color="white"
       />
-      <Ionicons style={styles.add} name="add" size={36} color="white" />
+      {/* <Ionicons style={styles.add} name="add" size={36} color="white" /> */}
     </Pressable>
   );
 }
@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     justifyContent: "flex-start",
+    marginHorizontal: 15
   },
   search: {
     padding: 10,

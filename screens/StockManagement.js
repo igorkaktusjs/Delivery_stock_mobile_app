@@ -30,7 +30,7 @@ import {
 
 const tableHead = ["Name", "Online", "Delivery"];
 
-function StockManagement() {
+function StockManagement(props) {
   const [triggerItemDelivery] = useTriggerItemDeliveryMutation();
   const [triggerItemOnline] = useTriggerItemOnlineMutation();
 
@@ -46,26 +46,25 @@ function StockManagement() {
     currentData,
   } = useGetAllStockQuery();
 
-  console.log(currentFilterTag)
-
   const filteredData = useMemo(() => {
-
     let searchData = " ";
-    let filterTagData = '';
+    let filterTagData = "";
     let filterStockData = " ";
 
     searchData = getAllStock.filter((item) =>
       item.name.includes(searchProduct)
     );
 
-    if (currentFilterTag === 'All') {
-        filterTagData = searchData;
-      } else {
-         filterTagData = searchData.filter(item => item.type === currentFilterTag)      
-      }
+    if (currentFilterTag === "All") {
+      filterTagData = searchData;
+    } else {
+      filterTagData = searchData.filter(
+        (item) => item.type === currentFilterTag
+      );
+    }
 
     if (filterAllStock === false) {
-        return  filterStockData = filterTagData;
+      return (filterStockData = filterTagData);
     }
 
     filterStockData = searchData.filter(
@@ -73,10 +72,8 @@ function StockManagement() {
         item.online === !filterAllStock || item.delivery === !filterAllStock
     );
 
-
-
     return filterStockData;
-  }, [getAllStock, searchProduct, filterAllStock,currentFilterTag ]);
+  }, [getAllStock, searchProduct, filterAllStock, currentFilterTag]);
 
   return (
     <View>
@@ -146,7 +143,6 @@ const styles = StyleSheet.create({
   head: {
     height: 25,
     margin: 1,
-
     borderTopColor: "gray",
     borderBottomWidth: 0.1,
     borderEndColor: "gray",
@@ -189,7 +185,7 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
   },
   buttonOn: {
-    backgroundColor: "#6b8e23",
+    backgroundColor: "#2e8b57",
   },
   buttonOff: {
     backgroundColor: "#ff4500",
@@ -197,7 +193,6 @@ const styles = StyleSheet.create({
 
   textStyle: {
     textAlign: "center",
-    marginBottom: 8,
+    marginBottom: 8
   },
-  
 });

@@ -1,24 +1,23 @@
 import { View, TextInput, StyleSheet } from "react-native";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { searchProduct } from "../../store/allProductsStockSlice";
+import { searchProduct, currentFocusOnSearch } from "../../store/allProductsStockSlice";
 
-import { useGetAllStockQuery } from "../../store/ApiSlice";
-
-function SearchProducts() {
-  const { data: post } = useGetAllStockQuery();
+function SearchProducts(props) {
 
   const dispatch = useDispatch();
 
-  const [focusing, setFocusing] = useState("");
+  const [focusing, setFocusing] = useState('');
 
   const customOnFocus = () => {
-    setFocusing({ textAlign: "left" });
+    setFocusing({ textAlign: "left" })
+
   };
 
   const InputHandler = (e) => {
     dispatch(searchProduct(e));
+    
   };
 
   const input = useSelector((state) => state.stockSlice.searchProduct);

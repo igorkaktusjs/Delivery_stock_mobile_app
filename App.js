@@ -1,10 +1,10 @@
 import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback} from "react-native";
 import { MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
 import { Provider } from "react-redux";
 import store from "./store/store";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import FilterWithBottomSheetModal from "./components/FilterWithBottomSheetModal";
@@ -24,8 +24,12 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   const bottomSheetModalRef = useRef(null);
 
+  const [useModal, setUseModal] = useState(false);
+
   const handlePresentModal = () => {
-    bottomSheetModalRef.current?.present();
+    bottomSheetModalRef.current?.present(),
+    Keyboard.dismiss()
+    setUseModal(true);
   };
 
   const handleClosePress = () => bottomSheetModalRef.current.close();
@@ -63,11 +67,11 @@ export default function App() {
                     ),
                     headerStatusBarHeight: 28,
                     contentStyle: {
-                      backgroundColor: "F2F1F1",
+                      backgroundColor: "#f5f5f5",
                     },
                     headerRight: () => {
                       return (
-                        <IconButtonForStatusBar onPress={handlePresentModal} />
+                        <IconButtonForStatusBar onPress={handlePresentModal}/>
                       );
                     },
                     // headerLeftContainerStyle: {

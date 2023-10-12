@@ -89,6 +89,46 @@ export const apiSlice = createApi({
            },
           providesTags:['Stock']
       }),
+      getAllOrders: builder.query({
+        async queryFn()  {
+          try{
+            const ordersRef = collection(db, 'orders');
+            const querySnapshot = await getDocs(ordersRef);
+            let orders = [];
+            querySnapshot?.forEach((doc) => {
+              orders.push({
+                ...doc.data(),
+                key: doc.id,
+              });
+            });
+            return { data: orders};
+          } catch(err){
+            return {error: err}
+          }
+         
+       },
+      providesTags:['Stock']
+  }),
+  getAllReports: builder.query({
+    async queryFn()  {
+      try{
+        const reportsRef = collection(db, 'reports');
+        const querySnapshot = await getDocs(reportsRef);
+        let reports = [];
+        querySnapshot?.forEach((doc) => {
+          reports.push({
+            ...doc.data(),
+            key: doc.id,
+          });
+        });
+        return { data: reports};
+      } catch(err){
+        return {error: err}
+      }
+     
+   },
+  providesTags:['Stock']
+}),
             
         }) 
 })
@@ -98,5 +138,7 @@ export const {
     useTriggerItemDeliveryMutation, 
     useTriggerItemOnlineMutation,
     useGetCurrentDataQuery,
-    useGetAllFiltersQuery
+    useGetAllFiltersQuery,
+    useGetAllOrdersQuery,
+    useGetAllReportsQuery
 } = apiSlice;
