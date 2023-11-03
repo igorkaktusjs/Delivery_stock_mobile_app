@@ -31,3 +31,5 @@ We welcome contributions from the open-source community. Feel free to fork this 
 
 Contact Us:
 If you have questions, feedback, or need assistance, please reach out to our support team at  igortoliupa@gmail.com
+
+Simplify Your Inventory Management and Enhance Your Bakery's Efficiency!
